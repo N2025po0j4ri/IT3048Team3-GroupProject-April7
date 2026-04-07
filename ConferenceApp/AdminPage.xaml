@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ConferenceApp.AdminPage"
+             Title="AdminPage">
+    <ScrollView>
+        <FlexLayout Direction="Column">
+        <Frame>
+            <Grid Padding="5" 
+        VerticalOptions="Start"
+        HorizontalOptions="Start">
+
+                <Button Text="Back"
+          Clicked="backButton_Clicked"
+          VerticalOptions="Start"
+          HorizontalOptions="Start"/>
+
+            </Grid>
+        </Frame>
+        <VerticalStackLayout Padding="10"
+                 FlexLayout.Basis="400"
+                 BackgroundColor="Beige">
+            <Entry x:Name="nameEntry" Placeholder="Topic Name"/>
+            <Entry x:Name="speakersEntry" Placeholder="Speakers"/>
+            <Entry x:Name="detailEntry" Placeholder="Detail"/>
+            <Button x:Name="saveButton" Text="Save" Clicked="saveButton_Clicked"/>
+
+        </VerticalStackLayout>
+        <ListView x:Name="Lv" FlexLayout.Grow="1" HasUnevenRows="True"
+      ItemTapped="Lv_ItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <VerticalStackLayout Padding="5">
+                            <Label Text="{Binding TopicName}"
+                      FontSize="20"
+                      FontAttributes="Bold"/>
+                            <Grid ColumnDefinitions="Auto,*,Auto">
+                                <Label Grid.Column="0" Text="{Binding Speakers}"/>
+                                <Label Grid.Column="2" Text="{Binding Detail}"
+                           FontAttributes="Bold"/>
+                            </Grid>
+                        </VerticalStackLayout>
+
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </FlexLayout>
+    </ScrollView>
+</ContentPage>

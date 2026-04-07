@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ConferenceApp.SearchPage"
+             Title="SearchPage">
+
+    <VerticalStackLayout Padding="20" Spacing="20">
+
+        <!-- Filter Picker -->
+        <Picker x:Name="FilterPicker"
+                Title="Filter by name"
+                SelectedIndexChanged="FilterPicker_SelectedIndexChanged">
+            <Picker.Items>
+                <x:String>All</x:String>
+                <x:String>AI</x:String>
+                <x:String>Cloud</x:String>
+                <x:String>Security</x:String>
+                <x:String>Data</x:String>
+            </Picker.Items>
+        </Picker>
+
+        <!-- Optional SearchBar -->
+        <SearchBar x:Name="SearchInput"
+                   Placeholder="Search topics..."
+                   TextChanged="SearchInput_TextChanged" />
+
+        <!-- Flat CollectionView (no grouping) -->
+        <CollectionView x:Name="LvTopics"
+                        >
+
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout Margin="20" Padding="10">
+                        <Image HeightRequest="60"
+                               WidthRequest="60"
+                               Source="{Binding ImageName}" />
+                        <Label FontSize="Medium"
+                               Text="{Binding Name}"
+                               HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+        <Grid Padding="5" 
+            VerticalOptions="Start"
+            HorizontalOptions="Start">
+
+                <Button Text="Back"
+              Clicked="backButton_Clicked"
+              VerticalOptions="Start"
+              HorizontalOptions="Start"/>
+
+        </Grid>
+    </VerticalStackLayout>
+
+
+</ContentPage>

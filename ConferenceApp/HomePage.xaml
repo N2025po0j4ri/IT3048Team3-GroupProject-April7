@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ConferenceApp.HomePage"
+             Title="HomePage">
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+
+        <!-- Row 0: Two buttons side by side -->
+        <Grid Grid.Row="1"
+              ColumnDefinitions="*,*"
+              ColumnSpacing="20"
+              Margin="20">
+
+            <Frame Padding="10" Grid.Column="0">
+                <Button x:Name="Home" Text="Home" />
+            </Frame>
+
+            <Frame Padding="10" Grid.Column="1">
+                <Button x:Name="Conf" Text="Companion Admin" />
+            </Frame>
+
+        </Grid>
+
+        <!-- Row 1: Now wrapped in a layout so it displays -->
+        <Frame Grid.Row="1" BackgroundColor="White" Padding="10" Margin="20">
+            <VerticalStackLayout Spacing="10">
+                <Entry x:Name="Username" Placeholder="Username"/>
+                <Entry x:Name="UserEmail" Placeholder="Email"/>
+                <Button x:Name="loginButton" Text="Login input" Clicked="loginbutton_Clicked" />
+                <!-- Error message -->
+                <Label x:Name="ErrorLabel"
+                   TextColor="Red"
+                   FontAttributes="Bold"
+                   IsVisible="False" /> 
+            </VerticalStackLayout>
+        </Frame>
+        <Frame Grid.Row="2" BackgroundColor="White" Padding="10" Margin="20">
+            <VerticalStackLayout Spacing="10">
+                <Button x:Name="guestButton" Text="Continue as Guest" Clicked="guestbutton_Clicked"/>
+            </VerticalStackLayout>
+        </Frame>
+        <!-- Last Row -->
+        <Grid Grid.Row="3" Padding="10" Margin="20"
+          VerticalOptions="Start"
+          HorizontalOptions="Start">
+
+            <Button Text="Back"
+            Clicked="backButton_Clicked"
+            VerticalOptions="Start"
+            HorizontalOptions="Start"/>
+
+        </Grid>
+
+    </Grid>
+
+
+</ContentPage>

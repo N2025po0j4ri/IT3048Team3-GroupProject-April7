@@ -2,7 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConferenceApp.TopicsPage"
-             Title="TopicsPage">
+             Title="Sessions">
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" >
         <Grid Grid.Row="0"
               ColumnDefinitions="*" >
@@ -16,31 +16,31 @@
             </Frame>
         </Grid>
         <Grid Grid.Row="1"
-              ColumnDefinitions="*,*,*"
+              ColumnDefinitions="*,*"
               ColumnSpacing="30"
               Margin="20" >
 
             <Frame Padding="10" Grid.Column="0">
-                <Button x:Name="Home" Text="Home" Clicked="SignOutButton_Clicked"/>
+                <Button x:Name="Home" Text="Sign Out" Clicked="SignOutButton_Clicked"/>
             </Frame>
             <Frame Padding="10" Grid.Column="1">
-                <Button x:Name="favorite" Text="Favorite Search" Clicked="searchButton_Clicked"/>
-            </Frame>
-            <Frame Padding="10" Grid.Column="2">
-                <Button x:Name="setting" Text="Setting" Clicked="settingButton_Clicked"/>
+                <Button x:Name="favorite" Text="Favorites" Clicked="searchButton_Clicked"/>
             </Frame>
             
         </Grid>
-        <Frame Grid.Row="2" BackgroundColor="LightBlue" Padding="10">
+        <SearchBar Grid.Row="2" x:Name="SessionSearch"
+                   Placeholder="Search sessions..."
+                   TextChanged="SessionSearch_TextChanged" />
+        <Frame Grid.Row="3" BackgroundColor="LightBlue" Padding="10">
             <Label Text="Topics List" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
 
         </Frame>
         
-        <CollectionView Grid.Row="3" 
+        <CollectionView Grid.Row="4" 
         x:Name="LvTopics" 
         IsGrouped="True" 
         SelectionMode="Single" 
-        SelectionChanged="LvTopic_SelectionChangedd" BackgroundColor="Yellow"
+        SelectionChanged="LvTopic_SelectionChangedd"
         >
 
             <CollectionView.ItemsLayout>
@@ -55,23 +55,19 @@
                 <DataTemplate>
                     <VerticalStackLayout Margin="20" Padding="10" >
                         <Image HeightRequest="60" WidthRequest="60" Source="{Binding ImageName}"/>
-                        <Label FontSize="Medium" Text="{Binding Name}" HorizontalOptions="Center"/>
+                        <Label FontSize="Medium" Text="{Binding TopicName}" HorizontalOptions="Center"/>
+                        <Button Text="{Binding FavoriteIcon}"
+                                FontSize="20"
+                                BackgroundColor="Transparent"
+                                TextColor="Gold"
+                                CommandParameter="{Binding .}"
+                                Clicked="FavoriteButton_Clicked"
+                                HorizontalOptions="Center"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <!-- Last Row -->
-        <Grid Grid.Row="4"
-          VerticalOptions="Center"
-          HorizontalOptions="Center">
-
-            <Button Text="Sign-out"
-            Clicked="SignOutButton_Clicked"
-            VerticalOptions="Center"
-            HorizontalOptions="Center" />
-
-        </Grid>
     </Grid>
     
 </ContentPage>

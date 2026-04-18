@@ -15,32 +15,53 @@ namespace ConferenceApp
         public LocalDBService()
         {
             _connection = new SQLiteAsyncConnection(Path.Combine(FileSystem.AppDataDirectory, DB_NAME));
-            _connection.CreateTableAsync<Session>();
+        }
 
+        private async Task Init()
+        {
+            await _connection.CreateTableAsync<Session>();
         }
 
         public async Task<List<Session>> GetSessions()
         {
+            await Init();
             return await _connection.Table<Session>().ToListAsync();
         }
         public async Task<Session> GetById(int id)
         {
+            await Init();
             return await _connection.Table<Session>().Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task Create(Session session)
         {
+            await Init();
             await _connection.InsertAsync(session);
         }
 
         public async Task Update(Session session)
         {
+            await Init();
             await _connection.UpdateAsync(session);
         }
 
         public async Task Delete(Session session)
         {
+            await Init();
             await _connection.DeleteAsync(session);
+        }
+
+        public async Task<List<Session>> GetFavorites()
+        {
+            await Init();
+            return await _connection.Table<Session>().Where(s => s.IsFavorite).ToListAsync();
+        }
+
+        public async Task ToggleFavorite(Session session)
+        {
+            await Init();
+            session.IsFavorite = !session.IsFavorite;
+            await _connection.UpdateAsync(session);
         }
     }
 }

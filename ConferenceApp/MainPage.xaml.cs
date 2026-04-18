@@ -15,8 +15,8 @@
 
         private void adminButton_Clicked(object sender, EventArgs e)
         {
-            // Shell.Current.GoToAsync(nameof(AdminPage));
-            Shell.Current.Navigation.PushAsync(new AdminPage(new LocalDBService()));
+            var page = Application.Current.Handler.MauiContext.Services.GetService<AdminPage>();
+            Shell.Current.Navigation.PushAsync(page);
         }
     }
 }

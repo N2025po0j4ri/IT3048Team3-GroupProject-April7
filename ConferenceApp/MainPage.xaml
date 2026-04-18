@@ -7,23 +7,10 @@
     <ScrollView>
         <Grid RowDefinitions="Auto,Auto,*">
 
-            <!-- Row 0: Two buttons side by side -->
-            <Grid Grid.Row="0"
-              ColumnDefinitions="*,*"
-              ColumnSpacing="30"
-              Margin="20">
+            <Frame Grid.Row="0" Padding="10" Margin="20">
+                <Button x:Name="Conf" Text="Companion Admin" Clicked="adminButton_Clicked"/>
+            </Frame>
 
-                <Frame  Padding="10" Grid.Column="0">
-                    <Button x:Name="Home" Text="Home" Clicked="startButton_Clicked" />
-                </Frame>
-
-                <Frame  Padding="10" Grid.Column="1">
-                    <Button x:Name="Conf" Text="Companion Admin" Clicked="adminButton_Clicked"/>
-                </Frame>
-
-            </Grid>
-
-            <!-- Row 1: Single button -->
             <Frame Grid.Row="1"  Padding="10" Margin="20">
                 <Button x:Name="startButton" Text="Getting Started" Clicked="startButton_Clicked" />
             </Frame>

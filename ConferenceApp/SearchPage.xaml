@@ -2,26 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConferenceApp.SearchPage"
-             Title="SearchPage">
+             Title="Favorites">
 
     <VerticalStackLayout Padding="20" Spacing="20">
 
-        <!-- Filter Picker -->
-        <Picker x:Name="FilterPicker"
-                Title="Filter by name"
-                SelectedIndexChanged="FilterPicker_SelectedIndexChanged">
-            <Picker.Items>
-                <x:String>All</x:String>
-                <x:String>AI</x:String>
-                <x:String>Cloud</x:String>
-                <x:String>Security</x:String>
-                <x:String>Data</x:String>
-            </Picker.Items>
-        </Picker>
-
-        <!-- Optional SearchBar -->
+        <!-- Search within favorites -->
         <SearchBar x:Name="SearchInput"
-                   Placeholder="Search topics..."
+                   Placeholder="Search favorites..."
                    TextChanged="SearchInput_TextChanged" />
 
         <!-- Flat CollectionView (no grouping) -->
@@ -39,7 +26,7 @@
                                WidthRequest="60"
                                Source="{Binding ImageName}" />
                         <Label FontSize="Medium"
-                               Text="{Binding Name}"
+                               Text="{Binding TopicName}"
                                HorizontalOptions="Center" />
                     </VerticalStackLayout>
                 </DataTemplate>

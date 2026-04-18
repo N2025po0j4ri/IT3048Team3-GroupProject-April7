@@ -8,18 +8,34 @@ public partial class AdminPage : ContentPage
     {
         InitializeComponent();
         _dbService = dbService;
-        Task.Run(async () => Lv.ItemsSource = await _dbService.GetSessions());
+    }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        Lv.ItemsSource = await _dbService.GetSessions();
     }
 
     private async void saveButton_Clicked(object sender, EventArgs e)
     {
+        if (string.IsNullOrWhiteSpace(nameEntry.Text) ||
+            string.IsNullOrWhiteSpace(speakersEntry.Text) ||
+            string.IsNullOrWhiteSpace(detailEntry.Text) ||
+            string.IsNullOrWhiteSpace(dayEntry.Text))
+        {
+            await DisplayAlert("Error", "All fields are required.", "OK");
+            return;
+        }
+
         if (_editSessionId == 0)
         {
             await _dbService.Create(new Session
             {
                 TopicName = nameEntry.Text,
                 Speakers = speakersEntry.Text,
-                Detail = detailEntry.Text
+                Detail = detailEntry.Text,
+                ImageName = imageNameEntry.Text,
+                Day = dayEntry.Text
             });
 
         }
@@ -30,7 +46,9 @@ public partial class AdminPage : ContentPage
                 Id = _editSessionId,
                 TopicName = nameEntry.Text,
                 Speakers = speakersEntry.Text,
-                Detail = detailEntry.Text
+                Detail = detailEntry.Text,
+                ImageName = imageNameEntry.Text,
+                Day = dayEntry.Text
 
             });
             _editSessionId = 0;
@@ -38,6 +56,8 @@ public partial class AdminPage : ContentPage
         nameEntry.Text = "";
         speakersEntry.Text = "";
         detailEntry.Text = "";
+        imageNameEntry.Text = "";
+        dayEntry.Text = "";
         Lv.ItemsSource = await _dbService.GetSessions();
     }
 
@@ -52,6 +72,8 @@ public partial class AdminPage : ContentPage
                 nameEntry.Text = session.TopicName;
                 speakersEntry.Text = session.Speakers;
                 detailEntry.Text = session.Detail;
+                imageNameEntry.Text = session.ImageName;
+                dayEntry.Text = session.Day;
                 break;
             case "Delete":
                 await _dbService.Delete(session);
@@ -63,6 +85,5 @@ public partial class AdminPage : ContentPage
     private void backButton_Clicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("..");
-        // Shell.Current.GoToAsync("../AnotherPage");
     }
 }

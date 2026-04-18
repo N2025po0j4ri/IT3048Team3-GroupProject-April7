@@ -19,6 +19,10 @@ namespace ConferenceApp
     		builder.Logging.AddDebug();
 #endif
 
+            builder.Services.AddSingleton<LocalDBService>();
+            builder.Services.AddTransient<AdminPage>();
+            builder.Services.AddTransient<TopicsPage>();
+
             return builder.Build();
         }
     }

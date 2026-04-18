@@ -23,6 +23,8 @@
             <Entry x:Name="nameEntry" Placeholder="Topic Name"/>
             <Entry x:Name="speakersEntry" Placeholder="Speakers"/>
             <Entry x:Name="detailEntry" Placeholder="Detail"/>
+            <Entry x:Name="imageNameEntry" Placeholder="Image Name (e.g. ai.png)"/>
+            <Entry x:Name="dayEntry" Placeholder="Day (e.g. Day 1)"/>
             <Button x:Name="saveButton" Text="Save" Clicked="saveButton_Clicked"/>
 
         </VerticalStackLayout>

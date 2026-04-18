@@ -1,16 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ConferenceApp
 {
-    public class DayGroup : List<Topic>
+    public class DayGroup : List<Session>
     {
         public string GroupName { get; set; }
 
-        public DayGroup(string name, List<Topic> topics) : base(topics)
+        public DayGroup(string name, List<Session> sessions) : base(sessions)
         {
             GroupName = name;
         }

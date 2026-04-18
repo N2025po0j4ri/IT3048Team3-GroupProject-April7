@@ -8,52 +8,74 @@ public partial class TopicsPage : ContentPage
     public string User_Name { get; set; }
     public string UserEmail { get; set; }
 
-    public List<DayGroup> Topics = new List<DayGroup>();
-    public TopicsPage()
+    private readonly LocalDBService _dbService;
+
+    public TopicsPage(LocalDBService dbService)
     {
         InitializeComponent();
-        Topics.Add(new DayGroup("Day 1", new List<Topic>
-        {
-            new Topic(){ Name="Artificial Intelligence",Speakers="John Paul",ImageName="ai.png",Detail="Gen AI"},
-            new Topic(){ Name="Image AI",Speakers="Guru V",ImageName="ai.png",Detail="Image AI"},
-        }));
-        Topics.Add(new DayGroup("Day 2", new List<Topic>
-        {
-            new Topic(){ Name="Artificial Intelligence",Speakers="John Paul",ImageName="ai.png",Detail="Gen AI"},
-            new Topic(){ Name="Data Analysis",Speakers="Data Guru",ImageName="dataanalysis.png",Detail="Advanced Data analytics"},
-        }));
-        LvTopics.ItemsSource = Topics;
+        _dbService = dbService;
     }
-    protected override void OnAppearing()
+
+    private List<Session> _allSessions = new List<Session>();
+
+    protected override async void OnAppearing()
     {
         base.OnAppearing();
-        // Add blank line after the text
+        MessageLabel.Text = string.IsNullOrWhiteSpace(User_Name)
+            ? "Welcome!"
+            : $"Welcome {User_Name}!";
 
-        MessageLabel.Text = "Welcome " + $"{User_Name}"+ "!"+ $"{Environment.NewLine}";
+        var sessions = await _dbService.GetSessions();
+        _allSessions = sessions;
+        GroupAndDisplay(_allSessions);
+    }
+
+    private void GroupAndDisplay(List<Session> sessions)
+    {
+        var grouped = sessions
+            .GroupBy(s => s.Day)
+            .Select(g => new DayGroup(g.Key ?? "Other", g.ToList()))
+            .ToList();
+        LvTopics.ItemsSource = grouped;
+    }
+
+    private void SessionSearch_TextChanged(object sender, TextChangedEventArgs e)
+    {
+        string searchText = e.NewTextValue;
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            GroupAndDisplay(_allSessions);
+            return;
+        }
+        var filtered = _allSessions
+            .Where(s => s.TopicName.Contains(searchText, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+        GroupAndDisplay(filtered);
     }
 
     private void LvTopic_SelectionChangedd(object sender, SelectionChangedEventArgs e)
     {
-        var selectedItem = e.CurrentSelection.FirstOrDefault() as Topic;
+        var selectedItem = e.CurrentSelection.FirstOrDefault() as Session;
         if (selectedItem == null) return;
         Navigation.PushAsync(new TopicDetailPage(selectedItem));
         ((CollectionView)sender).SelectedItem = null;
     }
-    private void settingButton_Clicked(object sender, EventArgs e)
+    private async void FavoriteButton_Clicked(object sender, EventArgs e)
     {
-        //  DisplayAlert("Save Contact", $"You clicked Save", "OK");  
-
-        Navigation.PushAsync(new SettingPage());
+        var button = sender as Button;
+        var session = button.CommandParameter as Session;
+        if (session == null) return;
+        await _dbService.ToggleFavorite(session);
+        _allSessions = await _dbService.GetSessions();
+        GroupAndDisplay(_allSessions);
     }
+
     private void searchButton_Clicked(object sender, EventArgs e)
     {
-        //  DisplayAlert("Save Contact", $"You clicked Save", "OK");  
-
-        Navigation.PushAsync(new SearchPage());
+        Navigation.PushAsync(new SearchPage(_dbService));
     }
     private void SignOutButton_Clicked(object sender, EventArgs e)
     {
         Shell.Current.GoToAsync("..");
-        // Shell.Current.GoToAsync("../AnotherPage");
     }
 }

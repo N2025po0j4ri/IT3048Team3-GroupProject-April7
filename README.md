@@ -51,3 +51,14 @@ Open your terminal or Git Bash and run:
 ```bash
 git clone https://github.com/N2025po0j4ri/IT3048Team3-GroupProject-April7.git
 cd IT3048Team3-GroupProject-April7
+
+### 2 Clone the Repository
+
+- Launch Visual Studio (2022 or later recommended)
+- Click "Open a project or solution"
+- Select the .sln file from the cloned repository
+
+### 3. Restore Dependencies
+- Visual Studio should automatically restore dependencies
+- If not, run: dotnet restore
+

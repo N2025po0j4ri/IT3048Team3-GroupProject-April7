@@ -51,6 +51,7 @@ Open your terminal or Git Bash and run:
 ```bash
 git clone https://github.com/N2025po0j4ri/IT3048Team3-GroupProject-April7.git
 cd IT3048Team3-GroupProject-April7
+```
 
 ### 2 Clone the Repository
 

@@ -9,14 +9,15 @@ public partial class TopicsPage : ContentPage
     public string UserEmail { get; set; }
 
     private readonly LocalDBService _dbService;
+    private readonly ViewModels.TopicsViewModel _vm;
 
     public TopicsPage(LocalDBService dbService)
     {
         InitializeComponent();
         _dbService = dbService;
+        _vm = new ViewModels.TopicsViewModel(_dbService);
+        BindingContext = _vm;
     }
-
-    private List<Session> _allSessions = new List<Session>();
 
     protected override async void OnAppearing()
     {
@@ -25,9 +26,8 @@ public partial class TopicsPage : ContentPage
             ? "Welcome!"
             : $"Welcome {User_Name}!";
 
-        var sessions = await _dbService.GetSessions();
-        _allSessions = sessions;
-        GroupAndDisplay(_allSessions);
+        await _vm.LoadSessions();
+        LvTopics.ItemsSource = _vm.Groups;
     }
 
     private void GroupAndDisplay(List<Session> sessions)
@@ -42,15 +42,8 @@ public partial class TopicsPage : ContentPage
     private void SessionSearch_TextChanged(object sender, TextChangedEventArgs e)
     {
         string searchText = e.NewTextValue;
-        if (string.IsNullOrWhiteSpace(searchText))
-        {
-            GroupAndDisplay(_allSessions);
-            return;
-        }
-        var filtered = _allSessions
-            .Where(s => s.TopicName.Contains(searchText, StringComparison.OrdinalIgnoreCase))
-            .ToList();
-        GroupAndDisplay(filtered);
+        _ = _vm.LoadSessions(searchText);
+        LvTopics.ItemsSource = _vm.Groups;
     }
 
     private void LvTopic_SelectionChangedd(object sender, SelectionChangedEventArgs e)
@@ -66,8 +59,8 @@ public partial class TopicsPage : ContentPage
         var session = button.CommandParameter as Session;
         if (session == null) return;
         await _dbService.ToggleFavorite(session);
-        _allSessions = await _dbService.GetSessions();
-        GroupAndDisplay(_allSessions);
+        await _vm.LoadSessions();
+        LvTopics.ItemsSource = _vm.Groups;
     }
 
     private void searchButton_Clicked(object sender, EventArgs e)

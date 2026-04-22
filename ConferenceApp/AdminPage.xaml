@@ -2,32 +2,24 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConferenceApp.AdminPage"
-             Title="AdminPage">
+             Title="Admin Page">
     <ScrollView>
         <FlexLayout Direction="Column">
-        <Frame>
-            <Grid Padding="5" 
-        VerticalOptions="Start"
-        HorizontalOptions="Start">
-
-                <Button Text="Back"
-          Clicked="backButton_Clicked"
-          VerticalOptions="Start"
-          HorizontalOptions="Start"/>
-
-            </Grid>
+        
+        <Frame Margin="20" Padding="10" BackgroundColor="White" HasShadow="False" VerticalOptions="Start">
+            <VerticalStackLayout Spacing="10">
+                <Entry x:Name="nameEntry" Placeholder="Topic Name" TextColor="Black" />
+                <Entry x:Name="speakersEntry" Placeholder="Speakers" TextColor="Black" />
+                <Entry x:Name="detailEntry" Placeholder="Detail" TextColor="Black" />
+                <Entry x:Name="imageNameEntry" Placeholder="Image Name (e.g. ai.png)" TextColor="Black" />
+                <Entry x:Name="dayEntry" Placeholder="Day (e.g. Day 1)" TextColor="Black" />
+            </VerticalStackLayout>
         </Frame>
-        <VerticalStackLayout Padding="10"
-                 FlexLayout.Basis="400"
-                 BackgroundColor="Beige">
-            <Entry x:Name="nameEntry" Placeholder="Topic Name"/>
-            <Entry x:Name="speakersEntry" Placeholder="Speakers"/>
-            <Entry x:Name="detailEntry" Placeholder="Detail"/>
-            <Entry x:Name="imageNameEntry" Placeholder="Image Name (e.g. ai.png)"/>
-            <Entry x:Name="dayEntry" Placeholder="Day (e.g. Day 1)"/>
-            <Button x:Name="saveButton" Text="Save" Clicked="saveButton_Clicked"/>
 
-        </VerticalStackLayout>
+        
+        <Grid Padding="0" Margin="20" VerticalOptions="Start">
+            <Button x:Name="saveButton" Text="Save" Clicked="saveButton_Clicked" TextColor="Black" />
+        </Grid>
         <ListView x:Name="Lv" FlexLayout.Grow="1" HasUnevenRows="True"
       ItemTapped="Lv_ItemTapped">
             <ListView.ItemTemplate>
@@ -36,11 +28,12 @@
                         <VerticalStackLayout Padding="5">
                             <Label Text="{Binding TopicName}"
                       FontSize="20"
-                      FontAttributes="Bold"/>
+                      FontAttributes="Bold"
+                      TextColor="White"/>
                             <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Grid.Column="0" Text="{Binding Speakers}"/>
+                                <Label Grid.Column="0" Text="{Binding Speakers}" TextColor="White" />
                                 <Label Grid.Column="2" Text="{Binding Detail}"
-                           FontAttributes="Bold"/>
+                           FontAttributes="Bold" TextColor="White" />
                             </Grid>
                         </VerticalStackLayout>
 
@@ -48,6 +41,18 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+
+        <Frame Margin="20" BackgroundColor="Transparent">
+            <Grid Padding="5"
+                  VerticalOptions="End"
+                  HorizontalOptions="Start">
+                <Button Text="Back"
+                        Clicked="backButton_Clicked"
+                        VerticalOptions="End"
+                        HorizontalOptions="Start" />
+            </Grid>
+        </Frame>
+
     </FlexLayout>
     </ScrollView>
 </ContentPage>

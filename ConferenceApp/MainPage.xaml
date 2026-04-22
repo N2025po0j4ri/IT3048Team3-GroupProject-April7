@@ -5,13 +5,18 @@
              Title="Conference Companion">
 
     <ScrollView>
-        <Grid RowDefinitions="Auto,Auto,*">
+        <Grid RowDefinitions="Auto,Auto,Auto,*">
 
-            <Frame Grid.Row="0" Padding="10" Margin="20">
+            <Label Grid.Row="0"
+                   Text="Conference Companion"
+                   Style="{StaticResource Headline}"
+                   Margin="0,20,0,10" />
+
+            <Frame Grid.Row="1" Padding="10" Margin="20">
                 <Button x:Name="Conf" Text="Companion Admin" Clicked="adminButton_Clicked"/>
             </Frame>
 
-            <Frame Grid.Row="1"  Padding="10" Margin="20">
+            <Frame Grid.Row="2"  Padding="10" Margin="20">
                 <Button x:Name="startButton" Text="Getting Started" Clicked="startButton_Clicked" />
             </Frame>
 

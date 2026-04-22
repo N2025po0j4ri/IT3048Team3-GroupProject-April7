@@ -3,25 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConferenceApp.HomePage"
              Title="Welcome">
-    <Grid RowDefinitions="Auto,Auto,*">
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
 
-        <Frame Grid.Row="0" BackgroundColor="White" Padding="10" Margin="20">
+        
+        <Label Grid.Row="0"
+               Text="Conference Companion"
+               Style="{StaticResource Headline}"
+               Margin="0,20,0,10" />
+
+        <Frame Grid.Row="1" BackgroundColor="White" Padding="10" Margin="20">
             <VerticalStackLayout Spacing="10">
-                <Entry x:Name="Username" Placeholder="Username"/>
-                <Entry x:Name="UserEmail" Placeholder="Email"/>
-                <Button x:Name="loginButton" Text="Login" Clicked="loginbutton_Clicked" />
+                <Entry x:Name="Username" Placeholder="Username" TextColor="Black" />
+                <Entry x:Name="UserEmail" Placeholder="Email" TextColor="Black" />
+                <Button x:Name="loginButton" Text="Login" Clicked="loginbutton_Clicked" TextColor="Black" />
                 <Label x:Name="ErrorLabel"
                    TextColor="Red"
                    FontAttributes="Bold"
                    IsVisible="False" /> 
             </VerticalStackLayout>
         </Frame>
-        <Frame Grid.Row="1" BackgroundColor="White" Padding="10" Margin="20">
+        <Frame Grid.Row="2" BackgroundColor="White" Padding="10" Margin="20">
             <VerticalStackLayout Spacing="10">
                 <Button x:Name="guestButton" Text="Continue as Guest" Clicked="guestbutton_Clicked"/>
             </VerticalStackLayout>
         </Frame>
-        <Grid Grid.Row="2" Padding="10" Margin="20"
+        <Grid Grid.Row="3" Padding="10" Margin="20"
           VerticalOptions="Start"
           HorizontalOptions="Start">
 

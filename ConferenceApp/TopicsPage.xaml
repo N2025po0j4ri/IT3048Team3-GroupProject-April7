@@ -6,13 +6,14 @@
     <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" >
         <Grid Grid.Row="0"
               ColumnDefinitions="*" >
-            <Frame Padding="10" Grid.Column="0">
-                <Label 
+            <Frame Padding="10" Grid.Column="0" HorizontalOptions="Fill">
+                <Label
                 Text=""
                 x:Name="MessageLabel"
-                FontAttributes="Bold"
-                VerticalOptions="Center" 
-                HorizontalOptions="End" />   
+                Style="{StaticResource Headline}"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center" />
             </Frame>
         </Grid>
         <Grid Grid.Row="1"
@@ -41,6 +42,8 @@
         IsGrouped="True" 
         SelectionMode="Single" 
         SelectionChanged="LvTopic_SelectionChangedd"
+        BackgroundColor="{StaticResource OffBlack}"
+        AutomationId="TopicsCollectionView"
         >
 
             <CollectionView.ItemsLayout>
@@ -48,22 +51,27 @@
             </CollectionView.ItemsLayout>
             <CollectionView.GroupHeaderTemplate>
                 <DataTemplate>
-                    <Label FontSize="20" FontAttributes="Bold" TextColor="AntiqueWhite" BackgroundColor="Gray" Text="{Binding GroupName}"/>
+                    <Label FontSize="20" FontAttributes="Bold" TextColor="White" BackgroundColor="Gray" Text="{Binding GroupName}"
+                           AutomationId="GroupHeader"
+                           SemanticProperties.HeadingLevel="Level2" />
                 </DataTemplate>
             </CollectionView.GroupHeaderTemplate>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <VerticalStackLayout Margin="20" Padding="10" >
-                        <Image HeightRequest="60" WidthRequest="60" Source="{Binding ImageName}"/>
-                        <Label FontSize="Medium" Text="{Binding TopicName}" HorizontalOptions="Center"/>
-                        <Button Text="{Binding FavoriteIcon}"
-                                FontSize="20"
-                                BackgroundColor="Transparent"
-                                TextColor="Gold"
-                                CommandParameter="{Binding .}"
-                                Clicked="FavoriteButton_Clicked"
-                                HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
+                    <Frame Margin="12" Padding="8" BackgroundColor="{StaticResource Gray950}" CornerRadius="8">
+                        <VerticalStackLayout Margin="4" Padding="4" >
+                            <Image HeightRequest="60" WidthRequest="60" Source="{Binding ImageName}"/>
+                            <Label FontSize="Medium" Text="{Binding TopicName}" HorizontalOptions="Center" TextColor="White" />
+                            <Button Text="{Binding FavoriteIcon}"
+                                    FontSize="20"
+                                    BackgroundColor="Transparent"
+                                    TextColor="Gold"
+                                    CommandParameter="{Binding .}"
+                                    Clicked="FavoriteButton_Clicked"
+                                    HorizontalOptions="Center"
+                                    AutomationId="FavoriteButton" />
+                        </VerticalStackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

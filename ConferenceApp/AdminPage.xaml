@@ -2,52 +2,62 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConferenceApp.AdminPage"
-             Title="AdminPage">
+             Title="Admin">
     <ScrollView>
-        <FlexLayout Direction="Column">
-        <Frame>
-            <Grid Padding="5" 
-        VerticalOptions="Start"
-        HorizontalOptions="Start">
+        <Grid Padding="20"
+              RowSpacing="16"
+              RowDefinitions="Auto,Auto,Auto,*">
+            <VerticalStackLayout Grid.Row="0"
+                                 Spacing="6">
+                <Label Text="Admin"
+                       FontSize="28"
+                       FontAttributes="Bold" />
+                <Label Text="Add or update conference sessions."
+                       TextColor="DimGray" />
+            </VerticalStackLayout>
 
-                <Button Text="Back"
-          Clicked="backButton_Clicked"
-          VerticalOptions="Start"
-          HorizontalOptions="Start"/>
+            <Frame Grid.Row="1">
+                <VerticalStackLayout Spacing="12">
+                    <Entry x:Name="nameEntry" Placeholder="Topic Name"/>
+                    <Entry x:Name="speakersEntry" Placeholder="Speakers"/>
+                    <Entry x:Name="detailEntry" Placeholder="Detail"/>
+                    <Entry x:Name="imageNameEntry" Placeholder="Image Name (e.g. ai.png)"/>
+                    <Entry x:Name="dayEntry" Placeholder="Day (e.g. Day 1)"/>
+                    <Button x:Name="saveButton"
+                            Text="Save"
+                            HeightRequest="48"
+                            Clicked="saveButton_Clicked"/>
+                </VerticalStackLayout>
+            </Frame>
 
-            </Grid>
-        </Frame>
-        <VerticalStackLayout Padding="10"
-                 FlexLayout.Basis="400"
-                 BackgroundColor="Beige">
-            <Entry x:Name="nameEntry" Placeholder="Topic Name"/>
-            <Entry x:Name="speakersEntry" Placeholder="Speakers"/>
-            <Entry x:Name="detailEntry" Placeholder="Detail"/>
-            <Entry x:Name="imageNameEntry" Placeholder="Image Name (e.g. ai.png)"/>
-            <Entry x:Name="dayEntry" Placeholder="Day (e.g. Day 1)"/>
-            <Button x:Name="saveButton" Text="Save" Clicked="saveButton_Clicked"/>
+            <Button Grid.Row="2"
+                    Text="Back"
+                    WidthRequest="120"
+                    HorizontalOptions="Start"
+                    Clicked="backButton_Clicked" />
 
-        </VerticalStackLayout>
-        <ListView x:Name="Lv" FlexLayout.Grow="1" HasUnevenRows="True"
-      ItemTapped="Lv_ItemTapped">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <VerticalStackLayout Padding="5">
-                            <Label Text="{Binding TopicName}"
-                      FontSize="20"
-                      FontAttributes="Bold"/>
-                            <Grid ColumnDefinitions="Auto,*,Auto">
-                                <Label Grid.Column="0" Text="{Binding Speakers}"/>
-                                <Label Grid.Column="2" Text="{Binding Detail}"
-                           FontAttributes="Bold"/>
-                            </Grid>
-                        </VerticalStackLayout>
-
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </FlexLayout>
+            <Frame Grid.Row="3">
+                <ListView x:Name="Lv"
+                          HasUnevenRows="True"
+                          ItemTapped="Lv_ItemTapped">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <VerticalStackLayout Padding="8"
+                                                     Spacing="6">
+                                    <Label Text="{Binding TopicName}"
+                                           FontSize="18"
+                                           FontAttributes="Bold"/>
+                                    <Label Text="{Binding Speakers}"
+                                           TextColor="DimGray"/>
+                                    <Label Text="{Binding Detail}"
+                                           LineBreakMode="TailTruncation"/>
+                                </VerticalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Frame>
+        </Grid>
     </ScrollView>
 </ContentPage>

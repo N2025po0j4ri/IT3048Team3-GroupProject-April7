@@ -5,18 +5,34 @@
              Title="Conference Companion">
 
     <ScrollView>
-        <Grid RowDefinitions="Auto,Auto,*">
+        <Grid Padding="20,40,20,20"
+              MinimumHeightRequest="720">
+            <VerticalStackLayout VerticalOptions="Center"
+                                 Spacing="24">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Conference Companion"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center" />
+                    <Label Text="Choose how you want to access the app."
+                           FontSize="15"
+                           TextColor="DimGray"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
 
-            <Frame Grid.Row="0" Padding="10" Margin="20">
-                <Button x:Name="Conf" Text="Companion Admin" Clicked="adminButton_Clicked"/>
-            </Frame>
-
-            <Frame Grid.Row="1"  Padding="10" Margin="20">
-                <Button x:Name="startButton" Text="Getting Started" Clicked="startButton_Clicked" />
-            </Frame>
-
+                <Frame>
+                    <VerticalStackLayout Spacing="16">
+                        <Button x:Name="startButton"
+                                Text="Getting Started"
+                                HeightRequest="50"
+                                Clicked="startButton_Clicked" />
+                        <Button x:Name="Conf"
+                                Text="Companion Admin"
+                                HeightRequest="50"
+                                Clicked="adminButton_Clicked"/>
+                    </VerticalStackLayout>
+                </Frame>
+            </VerticalStackLayout>
         </Grid>
     </ScrollView>
-
-
 </ContentPage>

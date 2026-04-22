@@ -2,27 +2,33 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConferenceApp.TopicDetailPage"
-             Title="TopicDetailPage">
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" Padding="20">
+             Title="Session Details">
+    <ScrollView>
+        <Grid Padding="20"
+              RowSpacing="16"
+              RowDefinitions="Auto,Auto">
+            <Frame Grid.Row="0">
+                <VerticalStackLayout Spacing="14">
+                    <Image x:Name="TopicImage"
+                           HeightRequest="240"
+                           Aspect="AspectFill" />
+                    <Label x:Name="LblTopicName"
+                           FontSize="28"
+                           FontAttributes="Bold" />
+                    <Label x:Name="LblSpeakers"
+                           FontSize="16"
+                           TextColor="DimGray" />
+                    <Label x:Name="LblTopicDesc"
+                           FontSize="15"
+                           LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Frame>
 
-        <Image Grid.Row="0"  x:Name="TopicImage" HeightRequest="300"/>
-        <Label Grid.Row="1" x:Name="LblTopicName"
-        FontSize="Title"/>
-        <Label Grid.Row="2" x:Name="LblSpeakers"
-        FontSize="Subtitle" TextColor="Gray"/>
-        <Label Grid.Row="3" x:Name="LblTopicDesc"
-        FontSize="Body"/>
-        <Grid Grid.Row="4" Padding="5" 
-        VerticalOptions="Start"
-        HorizontalOptions="Start">
-
-                <Button Text="Back"
-                  Clicked="backButton_Clicked"
-                  VerticalOptions="Start"
-                  HorizontalOptions="Start"/>
-
+            <Button Grid.Row="1"
+                    Text="Back"
+                    WidthRequest="120"
+                    HorizontalOptions="Start"
+                    Clicked="backButton_Clicked" />
         </Grid>
-
-    </Grid>
-    
+    </ScrollView>
 </ContentPage>

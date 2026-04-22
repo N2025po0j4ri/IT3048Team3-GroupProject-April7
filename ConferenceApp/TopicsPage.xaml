@@ -3,71 +3,118 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConferenceApp.TopicsPage"
              Title="Sessions">
-    <Grid RowDefinitions="Auto,Auto,Auto,Auto,*" >
-        <Grid Grid.Row="0"
-              ColumnDefinitions="*" >
-            <Frame Padding="10" Grid.Column="0">
-                <Label 
-                Text=""
-                x:Name="MessageLabel"
-                FontAttributes="Bold"
-                VerticalOptions="Center" 
-                HorizontalOptions="End" />   
-            </Frame>
-        </Grid>
-        <Grid Grid.Row="1"
-              ColumnDefinitions="*,*"
-              ColumnSpacing="30"
-              Margin="20" >
+    <Grid Padding="20"
+          RowSpacing="16"
+          RowDefinitions="Auto,*">
+        <Frame Grid.Row="0">
+            <VerticalStackLayout Spacing="14">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Conference Sessions"
+                           FontSize="28"
+                           FontAttributes="Bold" />
+                    <Label x:Name="MessageLabel"
+                           Text=""
+                           FontSize="15"
+                           FontAttributes="Bold"
+                           TextColor="DimGray" />
+                    <Label Text="Browse sessions by day, search topics, and save favorites."
+                           TextColor="Gray" />
+                </VerticalStackLayout>
 
-            <Frame Padding="10" Grid.Column="0">
-                <Button x:Name="Home" Text="Sign Out" Clicked="SignOutButton_Clicked"/>
-            </Frame>
-            <Frame Padding="10" Grid.Column="1">
-                <Button x:Name="favorite" Text="Favorites" Clicked="searchButton_Clicked"/>
-            </Frame>
-            
-        </Grid>
-        <SearchBar Grid.Row="2" x:Name="SessionSearch"
-                   Placeholder="Search sessions..."
-                   TextChanged="SessionSearch_TextChanged" />
-        <Frame Grid.Row="3" BackgroundColor="LightBlue" Padding="10">
-            <Label Text="Topics List" FontSize="20" FontAttributes="Bold" HorizontalTextAlignment="Center"/>
+                <Grid ColumnDefinitions="*,*"
+                      ColumnSpacing="12">
+                    <Button Grid.Column="0"
+                            x:Name="Home"
+                            Text="Sign Out"
+                            HeightRequest="48"
+                            Clicked="SignOutButton_Clicked" />
+                    <Button Grid.Column="1"
+                            x:Name="favorite"
+                            Text="Favorites"
+                            HeightRequest="48"
+                            Clicked="searchButton_Clicked" />
+                </Grid>
 
+                <SearchBar x:Name="SessionSearch"
+                           Placeholder="Search sessions..."
+                           TextChanged="SessionSearch_TextChanged" />
+            </VerticalStackLayout>
         </Frame>
-        
-        <CollectionView Grid.Row="4" 
-        x:Name="LvTopics" 
-        IsGrouped="True" 
-        SelectionMode="Single" 
-        SelectionChanged="LvTopic_SelectionChangedd"
-        >
 
+        <CollectionView Grid.Row="1"
+                        x:Name="LvTopics"
+                        IsGrouped="True"
+                        SelectionMode="Single"
+                        SelectionChanged="LvTopic_SelectionChangedd">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2"/>
+                <LinearItemsLayout Orientation="Vertical"
+                                  ItemSpacing="14" />
             </CollectionView.ItemsLayout>
+
             <CollectionView.GroupHeaderTemplate>
                 <DataTemplate>
-                    <Label FontSize="20" FontAttributes="Bold" TextColor="AntiqueWhite" BackgroundColor="Gray" Text="{Binding GroupName}"/>
+                    <Grid Padding="0,8,0,0">
+                        <Frame Padding="14,10"
+                               CornerRadius="14"
+                               BackgroundColor="#DDEAF7"
+                               HasShadow="False">
+                            <Label FontSize="18"
+                                   FontAttributes="Bold"
+                                   TextColor="#23425F"
+                                   Text="{Binding GroupName}" />
+                        </Frame>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.GroupHeaderTemplate>
+
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <VerticalStackLayout Margin="20" Padding="10" >
-                        <Image HeightRequest="60" WidthRequest="60" Source="{Binding ImageName}"/>
-                        <Label FontSize="Medium" Text="{Binding TopicName}" HorizontalOptions="Center"/>
-                        <Button Text="{Binding FavoriteIcon}"
-                                FontSize="20"
-                                BackgroundColor="Transparent"
-                                TextColor="Gold"
-                                CommandParameter="{Binding .}"
-                                Clicked="FavoriteButton_Clicked"
-                                HorizontalOptions="Center"/>
-                    </VerticalStackLayout>
+                    <Frame Margin="0"
+                           Padding="16"
+                           BackgroundColor="White">
+                        <Grid RowDefinitions="Auto,Auto,Auto"
+                              RowSpacing="10">
+                            <Label Grid.Row="0"
+                                   Text="{Binding TopicName}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"
+                                   LineBreakMode="WordWrap" />
+
+                            <Label Grid.Row="1"
+                                   Text="{Binding Day, StringFormat='Time: {0}'}"
+                                   FontSize="14"
+                                   TextColor="DimGray"
+                                   LineBreakMode="TailTruncation" />
+
+                            <Grid Grid.Row="2"
+                                  ColumnDefinitions="*,Auto"
+                                  ColumnSpacing="12">
+                                <Label Grid.Column="0"
+                                       Text="{Binding Speakers, StringFormat='Room: {0}'}"
+                                       FontSize="14"
+                                       TextColor="Gray"
+                                       LineBreakMode="TailTruncation"
+                                       MaxLines="1" />
+
+                                <Button Grid.Column="1"
+                                        Text="{Binding FavoriteIcon}"
+                                        FontSize="20"
+                                        HeightRequest="36"
+                                        WidthRequest="36"
+                                        Padding="0"
+                                        CornerRadius="18"
+                                        BackgroundColor="#FFF7D6"
+                                        TextColor="#B8860B"
+                                        CommandParameter="{Binding .}"
+                                        Clicked="FavoriteButton_Clicked"
+                                        HorizontalOptions="End"
+                                        VerticalOptions="Center" />
+                            </Grid>
+                        </Grid>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
     </Grid>
     
 </ContentPage>

@@ -4,46 +4,70 @@
              x:Class="ConferenceApp.SearchPage"
              Title="Favorites">
 
-    <VerticalStackLayout Padding="20" Spacing="20">
+    <Grid Padding="20"
+          RowSpacing="16"
+          RowDefinitions="Auto,Auto,*">
+        <VerticalStackLayout Grid.Row="0"
+                             Spacing="6">
+            <Label Text="Favorite Sessions"
+                   FontSize="28"
+                   FontAttributes="Bold" />
+            <Label Text="Search and review your saved sessions."
+                   TextColor="DimGray" />
+        </VerticalStackLayout>
 
-        <!-- Search within favorites -->
-        <SearchBar x:Name="SearchInput"
+        <SearchBar Grid.Row="1"
+                   x:Name="SearchInput"
                    Placeholder="Search favorites..."
                    TextChanged="SearchInput_TextChanged" />
 
-        <!-- Flat CollectionView (no grouping) -->
-        <CollectionView x:Name="LvTopics"
-                        >
+        <Grid Grid.Row="2"
+              RowDefinitions="*,Auto"
+              RowSpacing="16">
+            <CollectionView Grid.Row="0"
+                            x:Name="LvTopics">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical"
+                                       ItemSpacing="14"/>
+                </CollectionView.ItemsLayout>
 
-            <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2"/>
-            </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Frame Margin="0">
+                            <Grid ColumnDefinitions="72,*"
+                                  ColumnSpacing="14">
+                                <Image Grid.Column="0"
+                                       HeightRequest="72"
+                                       WidthRequest="72"
+                                       Source="{Binding ImageName}"
+                                       Aspect="AspectFill"
+                                       VerticalOptions="Center" />
+                                <VerticalStackLayout Grid.Column="1"
+                                     Spacing="6"
+                                     VerticalOptions="Center">
+                                    <Label FontSize="18"
+                                           FontAttributes="Bold"
+                                           Text="{Binding TopicName}" />
+                                    <Label Text="{Binding Speakers}"
+                                           TextColor="DimGray"
+                                           LineBreakMode="TailTruncation" />
+                                    <Label Text="{Binding Day}"
+                                           FontSize="13"
+                                           TextColor="Gray"
+                                           LineBreakMode="TailTruncation" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <VerticalStackLayout Margin="20" Padding="10">
-                        <Image HeightRequest="60"
-                               WidthRequest="60"
-                               Source="{Binding ImageName}" />
-                        <Label FontSize="Medium"
-                               Text="{Binding TopicName}"
-                               HorizontalOptions="Center" />
-                    </VerticalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-
-        </CollectionView>
-        <Grid Padding="5" 
-            VerticalOptions="Start"
-            HorizontalOptions="Start">
-
-                <Button Text="Back"
-              Clicked="backButton_Clicked"
-              VerticalOptions="Start"
-              HorizontalOptions="Start"/>
-
+            <Button Grid.Row="1"
+                    Text="Back"
+                    WidthRequest="120"
+                    HorizontalOptions="Start"
+                    Clicked="backButton_Clicked" />
         </Grid>
-    </VerticalStackLayout>
-
+    </Grid>
 
 </ContentPage>

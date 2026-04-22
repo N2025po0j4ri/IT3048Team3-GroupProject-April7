@@ -3,36 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ConferenceApp.HomePage"
              Title="Welcome">
-    <Grid RowDefinitions="Auto,Auto,*">
+    <ScrollView>
+        <Grid Padding="20,40,20,20"
+              MinimumHeightRequest="720">
+            <VerticalStackLayout VerticalOptions="Center"
+                                 Spacing="24">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Conference Companion"
+                           FontSize="30"
+                           FontAttributes="Bold"
+                           HorizontalTextAlignment="Center" />
+                    <Label Text="Sign in to view sessions or continue as a guest."
+                           FontSize="15"
+                           TextColor="DimGray"
+                           HorizontalTextAlignment="Center" />
+                </VerticalStackLayout>
 
-        <Frame Grid.Row="0" BackgroundColor="White" Padding="10" Margin="20">
-            <VerticalStackLayout Spacing="10">
-                <Entry x:Name="Username" Placeholder="Username"/>
-                <Entry x:Name="UserEmail" Placeholder="Email"/>
-                <Button x:Name="loginButton" Text="Login" Clicked="loginbutton_Clicked" />
-                <Label x:Name="ErrorLabel"
-                   TextColor="Red"
-                   FontAttributes="Bold"
-                   IsVisible="False" /> 
+                <Frame Padding="24"
+                       BackgroundColor="White">
+                    <VerticalStackLayout Spacing="16">
+                        <Label Text="Login"
+                               FontSize="24"
+                               FontAttributes="Bold" />
+                        <Label Text="Enter your information to continue to the session list."
+                               TextColor="DimGray" />
+
+                        <Entry x:Name="Username"
+                               Placeholder="Username"
+                               HorizontalOptions="Fill"
+                               ClearButtonVisibility="WhileEditing" />
+
+                        <Entry x:Name="UserEmail"
+                               Placeholder="Email"
+                               Keyboard="Email"
+                               HorizontalOptions="Fill"
+                               ClearButtonVisibility="WhileEditing" />
+
+                        <Label x:Name="ErrorLabel"
+                               TextColor="Red"
+                               FontAttributes="Bold"
+                               IsVisible="False" />
+
+                        <Button x:Name="loginButton"
+                                Text="Login"
+                                HeightRequest="50"
+                                HorizontalOptions="Fill"
+                                Clicked="loginbutton_Clicked" />
+
+                        <Button x:Name="guestButton"
+                                Text="Continue as Guest"
+                                HeightRequest="50"
+                                HorizontalOptions="Fill"
+                                Clicked="guestbutton_Clicked" />
+
+                        <Button Text="Back"
+                                HeightRequest="44"
+                                WidthRequest="120"
+                                HorizontalOptions="Start"
+                                BackgroundColor="Transparent"
+                                TextColor="DimGray"
+                                Clicked="backButton_Clicked" />
+                    </VerticalStackLayout>
+                </Frame>
             </VerticalStackLayout>
-        </Frame>
-        <Frame Grid.Row="1" BackgroundColor="White" Padding="10" Margin="20">
-            <VerticalStackLayout Spacing="10">
-                <Button x:Name="guestButton" Text="Continue as Guest" Clicked="guestbutton_Clicked"/>
-            </VerticalStackLayout>
-        </Frame>
-        <Grid Grid.Row="2" Padding="10" Margin="20"
-          VerticalOptions="Start"
-          HorizontalOptions="Start">
-
-            <Button Text="Back"
-            Clicked="backButton_Clicked"
-            VerticalOptions="Start"
-            HorizontalOptions="Start"/>
-
         </Grid>
-
-    </Grid>
-
+    </ScrollView>
 
 </ContentPage>

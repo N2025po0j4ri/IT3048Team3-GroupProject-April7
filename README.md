@@ -73,7 +73,7 @@ cd IT3048Team3-GroupProject-April7
 - Users must click on "New +"
 - Next, users must automatically create the settings with Android 15.0 - API 35.
 
-### 6.0 Run the app
+### 6. Run the app
 - Users must click on the version in between the green debug icon and the green outline run button.
 - Users can select windows or their android version.
 - Users should click on clean and build to check if it works.

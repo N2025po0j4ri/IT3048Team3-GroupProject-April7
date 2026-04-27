@@ -62,18 +62,12 @@ cd IT3048Team3-GroupProject-April7
 - Visual Studio should automatically restore dependencies
 - If not, run: dotnet restore
 
-### 4. Ensure branch is levi-ui-cleanup
-- Users must click on git manage branches
-- Next, users must click on Git pull under Git tab options in the dropdown menu
-- Users must hover to the bottom right corner
-- Finally, levi-ui-cleanup must be selected
-
-### 5. Users must select Windows or Android
+### 4. Users must select Windows or Android
 - Users must hover over to Android Device Manager and select a version
 - Users must click on "New +"
 - Next, users must automatically create the settings with Android 15.0 - API 35.
 
-### 6. Run the app
+### 5. Run the app
 - Users must click on the version in between the green debug icon and the green outline run button.
 - Users can select windows or their android version.
 - Users should click on clean and build to check if it works.
